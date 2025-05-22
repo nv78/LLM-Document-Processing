@@ -38,3 +38,258 @@ bash init_data.sh
 | `/answer_question`      | POST   | RAG-based question answering           |
 | `/extract_structured`   | POST   | Agent-based structured extraction      |
 | `/to_fhir`              | POST   | Convert structured data to FHIR format |
+
+### Output From test_all.py
+
+```
+ python3 test_all.py
+
+=== Document 1: Sample Note ===
+Extract status: 200
+Structured: {
+  "patient_name": "John Doe",
+  "birth_date": "1985-03-14",
+  "gender": "Male",
+  "conditions": [
+    "Headache",
+    "Hypertension"
+  ],
+  "medications": [
+    "Acetaminophen",
+    "Lisinopril"
+  ],
+  "condition_codes": {
+    "Headache": "Unknown",
+    "Hypertension": "I10"
+  },
+  "medication_codes": {
+    "Acetaminophen": "Unknown",
+    "Lisinopril": "861008"
+  }
+}
+FHIR status: 200
+FHIR: {
+  "patient": {
+    "resourceType": "Patient",
+    "id": "1",
+    "name": [
+      {
+        "text": "John Doe"
+      }
+    ],
+    "gender": "Male",
+    "birthDate": "1985-03-14"
+  },
+  "conditions": [
+    {
+      "resourceType": "Condition",
+      "id": "1",
+      "subject": {
+        "reference": "Patient/1"
+      },
+      "code": {
+        "text": "Headache"
+      },
+      "clinicalStatus": "active",
+      "verificationStatus": "confirmed"
+    },
+    {
+      "resourceType": "Condition",
+      "id": "2",
+      "subject": {
+        "reference": "Patient/1"
+      },
+      "code": {
+        "text": "Hypertension"
+      },
+      "clinicalStatus": "active",
+      "verificationStatus": "confirmed"
+    }
+  ],
+  "medications": [
+    {
+      "resourceType": "MedicationStatement",
+      "id": "1",
+      "subject": {
+        "reference": "Patient/1"
+      },
+      "medicationCodeableConcept": {
+        "text": "Acetaminophen"
+      },
+      "status": "active"
+    },
+    {
+      "resourceType": "MedicationStatement",
+      "id": "2",
+      "subject": {
+        "reference": "Patient/1"
+      },
+      "medicationCodeableConcept": {
+        "text": "Lisinopril"
+      },
+      "status": "active"
+    }
+  ]
+}
+
+=== Document 2: soap_01.txt ===
+Extract status: 200
+Structured: {
+  "error": "Invalid request",
+  "condition_codes": {},
+  "medication_codes": {}
+}
+FHIR status: 200
+FHIR: {
+  "patient": {
+    "resourceType": "Patient",
+    "id": "1",
+    "name": [
+      {
+        "text": null
+      }
+    ],
+    "gender": null,
+    "birthDate": null
+  },
+  "conditions": [],
+  "medications": []
+}
+
+=== Document 3: soap_02.txt ===
+Extract status: 200
+Structured: {
+  "error": "Invalid request",
+  "condition_codes": {},
+  "medication_codes": {}
+}
+FHIR status: 200
+FHIR: {
+  "patient": {
+    "resourceType": "Patient",
+    "id": "1",
+    "name": [
+      {
+        "text": null
+      }
+    ],
+    "gender": null,
+    "birthDate": null
+  },
+  "conditions": [],
+  "medications": []
+}
+
+=== Document 4: soap_03.txt ===
+Extract status: 200
+Structured: {
+  "error": "Invalid request",
+  "condition_codes": {},
+  "medication_codes": {}
+}
+FHIR status: 200
+FHIR: {
+  "patient": {
+    "resourceType": "Patient",
+    "id": "1",
+    "name": [
+      {
+        "text": null
+      }
+    ],
+    "gender": null,
+    "birthDate": null
+  },
+  "conditions": [],
+  "medications": []
+}
+
+=== Document 5: soap_04.txt ===
+Extract status: 200
+Structured: {
+  "error": "Invalid request",
+  "condition_codes": {},
+  "medication_codes": {}
+}
+FHIR status: 200
+FHIR: {
+  "patient": {
+    "resourceType": "Patient",
+    "id": "1",
+    "name": [
+      {
+        "text": null
+      }
+    ],
+    "gender": null,
+    "birthDate": null
+  },
+  "conditions": [],
+  "medications": []
+}
+
+=== Document 6: soap_05.txt ===
+Extract status: 200
+Structured: {
+  "error": "Invalid request",
+  "condition_codes": {},
+  "medication_codes": {}
+}
+FHIR status: 200
+FHIR: {
+  "patient": {
+    "resourceType": "Patient",
+    "id": "1",
+    "name": [
+      {
+        "text": null
+      }
+    ],
+    "gender": null,
+    "birthDate": null
+  },
+  "conditions": [],
+  "medications": []
+}
+
+=== Document 7: soap_06.txt ===
+Extract status: 200
+Structured: {
+  "error": "Invalid request",
+  "condition_codes": {},
+  "medication_codes": {}
+}
+FHIR status: 200
+FHIR: {
+  "patient": {
+    "resourceType": "Patient",
+    "id": "1",
+    "name": [
+      {
+        "text": null
+      }
+    ],
+    "gender": null,
+    "birthDate": null
+  },
+  "conditions": [],
+  "medications": []
+}
+
+--- RAG Test Doc 1: "What did the patient report subjectively?" ---
+Status: 200
+Answer: The patient reported a headache.
+Source doc: 1
+
+--- RAG Test Doc 2: "What was the clinician's assessment?" ---
+Status: 200
+Answer: The clinician's assessment was that the patient likely had a tension headache due to stress or muscle tension, and recommended pain medication and stress management techniques.
+Source doc: 1
+
+--- RAG Test Doc 3: "List any medications mentioned." ---
+Status: 200
+Answer: 1. Ibuprofen
+2. Tylenol
+3. Excedrin
+Source doc: 1
+```

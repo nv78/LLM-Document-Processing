@@ -293,3 +293,26 @@ Answer: 1. Ibuprofen
 3. Excedrin
 Source doc: 1
 ```
+
+### Output from Docker Compose Logs
+```
+docker-compose logs -f app
+Attaching to llm-document-processing_app_1
+app_1  | INFO:     Started server process [1]
+app_1  | INFO:     Waiting for application startup.
+app_1  | INFO:     Application startup complete.
+app_1  | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+app_1  | INFO:     172.22.0.1:62304 - "GET /documents HTTP/1.1" 200 OK
+app_1  | INFO:     172.22.0.1:62306 - "POST /extract_structured HTTP/1.1" 200 OK
+app_1  | INFO:     172.22.0.1:62310 - "POST /to_fhir HTTP/1.1" 200 OK
+app_1  | INFO:     172.22.0.1:62312 - "POST /extract_structured HTTP/1.1" 200 OK
+app_1  | INFO:     172.22.0.1:62314 - "POST /to_fhir HTTP/1.1" 200 OK
+...
+app_1  | INFO:     172.22.0.1:62394 - "POST /to_fhir HTTP/1.1" 200 OK
+app_1  | INFO:     172.22.0.1:62396 - "POST /extract_structured HTTP/1.1" 200 OK
+app_1  | INFO:     172.22.0.1:62398 - "POST /to_fhir HTTP/1.1" 200 OK
+app_1  | INFO:     172.22.0.1:62400 - "GET /documents HTTP/1.1" 200 OK
+app_1  | INFO:     172.22.0.1:62402 - "POST /answer_question HTTP/1.1" 200 OK
+app_1  | INFO:     172.22.0.1:62404 - "POST /answer_question HTTP/1.1" 200 OK
+app_1  | INFO:     172.22.0.1:62406 - "POST /answer_question HTTP/1.1" 200 OK
+```

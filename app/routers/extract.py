@@ -19,7 +19,7 @@ class ExtractResponse(BaseModel):
 @router.post("/extract_structured", response_model=ExtractResponse)
 def extract_structured(req: ExtractRequest):
     prompt = f"Extract patient_name, birth_date (YYYY-MM-DD), gender, conditions (list of strings), medications (list of strings) from this medical note and return JSON only. Note: {req.text}"
-    resp = openai.ChatCompletion.create(
+    resp = openai.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[{"role":"user","content":prompt}]
     )

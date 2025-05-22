@@ -4,7 +4,7 @@ from app.config import settings
 openai.api_key = settings.OPENAI_API_KEY
 
 def summarize_text(text: str) -> str:
-    resp = openai.ChatCompletion.create(
+    resp = openai.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[{"role":"user","content":f"Summarize this medical note:\n{text}"}]
     )
@@ -12,7 +12,7 @@ def summarize_text(text: str) -> str:
 
 def generate_answer(question: str, context: str) -> str:
     prompt = f"Context: {context}\nQuestion: {question}\nAnswer:"
-    resp = openai.ChatCompletion.create(
+    resp = openai.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[{"role":"user","content":prompt}]
     )

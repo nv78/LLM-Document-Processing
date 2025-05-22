@@ -4,3 +4,6 @@ sqlalchemy
 pydantic
 openai
 python-dotenv
+pydantic-settings
+numpy
+requests

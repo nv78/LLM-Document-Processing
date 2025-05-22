@@ -13,8 +13,8 @@ A FastAPI backend that demonstrates:
 
 ```bash
 # Clone repo
-git clone <repo-url>
-cd medical-doc-processor
+git clone LLM-Document-Processing
+cd LLM-Document-Processing
 
 # Copy env file
 cp .env.example .env
